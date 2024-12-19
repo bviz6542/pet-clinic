@@ -4,5 +4,5 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Table("vet_specialty")
 public record SpecialtyRef(
-        Long specialty
+        Long specialtyId
 ) {}

@@ -1,6 +1,6 @@
 package com.autocrypt.pet_clinic.vet.service;
 
-import com.autocrypt.pet_clinic.vet.domain.Specialty;
+import com.autocrypt.pet_clinic.specialty.domain.Specialty;
 import com.autocrypt.pet_clinic.vet.dto.VetDto;
 import com.autocrypt.pet_clinic.vet.dto.VetListDto;
 import com.autocrypt.pet_clinic.vet.repository.VetRepository;

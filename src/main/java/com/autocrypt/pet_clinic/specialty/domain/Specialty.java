@@ -1,4 +1,4 @@
-package com.autocrypt.pet_clinic.vet.domain;
+package com.autocrypt.pet_clinic.specialty.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
