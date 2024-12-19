@@ -12,8 +12,8 @@ public interface VetRepository extends Repository<Vet, Long> {
         select v.id as vet_id, v.first_name, v.last_name,
            s.id as specialty_id, s.name as specialty_name
         from vet v
-        left join vet_specialty vs on v.id = vs.vet
-        left join specialty s on s.id = vs.specialty
+        left join vet_specialty vs on v.id = vs.vet_id
+        left join specialty s on s.id = vs.specialty_id
     """)
     List<VetWithSpecialtiesRaw> findAllWithSpecialtiesRaw();
 }

@@ -12,11 +12,11 @@ CREATE TABLE IF NOT EXISTS specialty (
     ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS vet_specialty (
-    vet INT UNSIGNED NOT NULL,
-    specialty INT UNSIGNED NOT NULL,
-    FOREIGN KEY (vet) REFERENCES vet(id),
-    FOREIGN KEY (specialty) REFERENCES specialty(id),
-    UNIQUE (vet, specialty)
+    vet_id INT UNSIGNED NOT NULL,
+    specialty_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (vet_id) REFERENCES vet(id),
+    FOREIGN KEY (specialty_id) REFERENCES specialty(id),
+    UNIQUE (vet_id, specialty_id)
     ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS pet_type (
