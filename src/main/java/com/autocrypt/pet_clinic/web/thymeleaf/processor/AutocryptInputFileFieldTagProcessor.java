@@ -1,18 +1,18 @@
-package com.autocrypt.pet_clinic.config.web.thymeleaf.processor;
+package com.autocrypt.pet_clinic.web.thymeleaf.processor;
 
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.model.IProcessableElementTag;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
 import org.thymeleaf.spring6.context.IThymeleafBindStatus;
-import org.thymeleaf.spring6.requestdata.RequestDataValueProcessorUtils;
 import org.thymeleaf.standard.util.StandardProcessorUtils;
 
-public class AutocryptInputPasswordFieldTagProcessor extends AutocryptAbstractSpringFieldTagProcessorWrapper {
-    public static final String PASSWORD_INPUT_TYPE_ATTR_VALUE = "password";
+public class AutocryptInputFileFieldTagProcessor extends AutocryptAbstractSpringFieldTagProcessorWrapper {
 
-    public AutocryptInputPasswordFieldTagProcessor(final String dialectPrefix) {
-        super(dialectPrefix, AC_INPUT_TAG_NAME, TYPE_ATTR_NAME, new String[]{PASSWORD_INPUT_TYPE_ATTR_VALUE}, true);
+    public static final String FILE_INPUT_TYPE_ATTR_VALUE = "file";
+
+    public AutocryptInputFileFieldTagProcessor(final String dialectPrefix) {
+        super(dialectPrefix, AC_INPUT_TAG_NAME, TYPE_ATTR_NAME, new String[]{FILE_INPUT_TYPE_ATTR_VALUE}, true);
     }
 
 
@@ -39,11 +39,6 @@ public class AutocryptInputPasswordFieldTagProcessor extends AutocryptAbstractSp
             NAME_ATTR_NAME,
             name); // No need to escape: this is a java-valid token
 
-        StandardProcessorUtils.setAttribute(
-            structureHandler,
-            this.valueAttributeDefinition,
-            VALUE_ATTR_NAME,
-            RequestDataValueProcessorUtils.processFormFieldValue(context, name, "", "password"));
-
     }
+
 }

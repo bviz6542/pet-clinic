@@ -1,4 +1,4 @@
-package com.autocrypt.pet_clinic.config.web.thymeleaf.processor;
+package com.autocrypt.pet_clinic.web.thymeleaf.processor;
 
 import org.thymeleaf.spring6.processor.AbstractSpringFieldTagProcessor;
 

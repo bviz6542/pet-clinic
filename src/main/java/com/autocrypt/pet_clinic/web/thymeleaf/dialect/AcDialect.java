@@ -1,12 +1,12 @@
-package com.autocrypt.pet_clinic.config.web.thymeleaf.dialect;
+package com.autocrypt.pet_clinic.web.thymeleaf.dialect;
 
-import com.autocrypt.pet_clinic.config.web.thymeleaf.processor.AutocryptInputCheckboxFieldTagProcessor;
-import com.autocrypt.pet_clinic.config.web.thymeleaf.processor.AutocryptInputFileFieldTagProcessor;
-import com.autocrypt.pet_clinic.config.web.thymeleaf.processor.AutocryptInputGeneralFieldTagProcessor;
-import com.autocrypt.pet_clinic.config.web.thymeleaf.processor.AutocryptInputPasswordFieldTagProcessor;
-import com.autocrypt.pet_clinic.config.web.thymeleaf.processor.AutocryptInputRadioFieldTagProcessor;
-import com.autocrypt.pet_clinic.config.web.thymeleaf.processor.AutocryptSelectInputHiddenFieldTagProcessor;
-import com.autocrypt.pet_clinic.config.web.thymeleaf.processor.AutocryptTextareaFieldTagProcessor;
+import com.autocrypt.pet_clinic.web.thymeleaf.processor.AutocryptInputCheckboxFieldTagProcessor;
+import com.autocrypt.pet_clinic.web.thymeleaf.processor.AutocryptInputFileFieldTagProcessor;
+import com.autocrypt.pet_clinic.web.thymeleaf.processor.AutocryptInputGeneralFieldTagProcessor;
+import com.autocrypt.pet_clinic.web.thymeleaf.processor.AutocryptInputPasswordFieldTagProcessor;
+import com.autocrypt.pet_clinic.web.thymeleaf.processor.AutocryptInputRadioFieldTagProcessor;
+import com.autocrypt.pet_clinic.web.thymeleaf.processor.AutocryptSelectInputHiddenFieldTagProcessor;
+import com.autocrypt.pet_clinic.web.thymeleaf.processor.AutocryptTextareaFieldTagProcessor;
 import java.util.HashSet;
 import java.util.Set;
 import org.thymeleaf.dialect.AbstractProcessorDialect;

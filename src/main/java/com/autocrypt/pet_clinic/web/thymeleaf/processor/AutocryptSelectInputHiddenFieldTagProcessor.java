@@ -1,6 +1,5 @@
-package com.autocrypt.pet_clinic.config.web.thymeleaf.processor;
+package com.autocrypt.pet_clinic.web.thymeleaf.processor;
 
-import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.model.IProcessableElementTag;
@@ -10,13 +9,10 @@ import org.thymeleaf.spring6.requestdata.RequestDataValueProcessorUtils;
 import org.thymeleaf.spring6.util.SpringValueFormatter;
 import org.thymeleaf.standard.util.StandardProcessorUtils;
 
-@Slf4j
-public final class AutocryptInputGeneralFieldTagProcessor extends AutocryptAbstractSpringFieldTagProcessorWrapper {
-
-    public AutocryptInputGeneralFieldTagProcessor(final String dialectPrefix) {
-        super(dialectPrefix, AC_INPUT_TAG_NAME, null, null, true);
+public class AutocryptSelectInputHiddenFieldTagProcessor extends AutocryptAbstractSpringFieldTagProcessorWrapper {
+    public AutocryptSelectInputHiddenFieldTagProcessor(final String dialectPrefix) {
+        super(dialectPrefix, AC_SELECT_TAG_NAME, null, null, true);
     }
-
 
     @Override
     protected void doProcess(
@@ -56,13 +52,10 @@ public final class AutocryptInputGeneralFieldTagProcessor extends AutocryptAbstr
             this.valueAttributeDefinition,
             VALUE_ATTR_NAME,
             RequestDataValueProcessorUtils.processFormFieldValue(context, name, value, type));
-
     }
 
 
     private static boolean applyConversion(final String type) {
         return !(type != null && ("number".equalsIgnoreCase(type) || "range".equalsIgnoreCase(type)));
     }
-
-
 }

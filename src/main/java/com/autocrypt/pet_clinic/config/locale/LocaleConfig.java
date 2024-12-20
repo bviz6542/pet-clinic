@@ -1,4 +1,4 @@
-package com.autocrypt.pet_clinic.config.web.locale;
+package com.autocrypt.pet_clinic.config.locale;
 
 import java.util.Locale;
 import org.springframework.context.annotation.Bean;

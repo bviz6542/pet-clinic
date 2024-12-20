@@ -1,4 +1,4 @@
-package com.autocrypt.pet_clinic.config.web.thymeleaf.processor;
+package com.autocrypt.pet_clinic.web.thymeleaf.processor;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

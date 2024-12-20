@@ -1,18 +1,21 @@
-package com.autocrypt.pet_clinic.config.web.thymeleaf.processor;
+package com.autocrypt.pet_clinic.web.thymeleaf.processor;
 
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
+import org.thymeleaf.exceptions.TemplateProcessingException;
 import org.thymeleaf.model.IProcessableElementTag;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
 import org.thymeleaf.spring6.context.IThymeleafBindStatus;
 import org.thymeleaf.spring6.requestdata.RequestDataValueProcessorUtils;
-import org.thymeleaf.spring6.util.SpringValueFormatter;
+import org.thymeleaf.spring6.util.SpringSelectedValueComparator;
 import org.thymeleaf.standard.util.StandardProcessorUtils;
+import org.unbescape.html.HtmlEscape;
 
-public class AutocryptSelectInputHiddenFieldTagProcessor extends AutocryptAbstractSpringFieldTagProcessorWrapper {
-    public AutocryptSelectInputHiddenFieldTagProcessor(final String dialectPrefix) {
-        super(dialectPrefix, AC_SELECT_TAG_NAME, null, null, true);
+public class AutocryptInputRadioFieldTagProcessor extends AutocryptAbstractSpringFieldTagProcessorWrapper {
+    public AutocryptInputRadioFieldTagProcessor(final String dialectPrefix) {
+        super(dialectPrefix, AC_RADIO_TAG_NAME, null, null, true);
     }
+
 
     @Override
     protected void doProcess(
@@ -24,17 +27,16 @@ public class AutocryptSelectInputHiddenFieldTagProcessor extends AutocryptAbstra
         String name = bindStatus.getExpression();
         name = (name == null ? "" : name);
 
-        final String id = computeId(context, tag, name, false);
+        final String id = computeId(context, tag, name, true);
 
-        // Thanks to precedence, this should have already been computed
-        final String type = tag.getAttributeValue(this.typeAttributeDefinition.getAttributeName());
+        final String value = tag.getAttributeValue(this.valueAttributeDefinition.getAttributeName());
+        if (value == null) {
+            throw new TemplateProcessingException(
+                "Attribute \"value\" is required in \"input(radio)\" tags");
+        }
 
-        // Apply the conversions (editor), depending on type (no conversion for "number" and "range"
-        // Also, no escaping needed as attribute values are always escaped by default
-        final String value =
-            applyConversion(type) ?
-            SpringValueFormatter.getDisplayString(bindStatus.getValue(), bindStatus.getEditor(), true) :
-            SpringValueFormatter.getDisplayString(bindStatus.getActualValue(), true);
+        final boolean checked =
+            SpringSelectedValueComparator.isSelected(bindStatus, HtmlEscape.unescapeHtml(value));
 
         StandardProcessorUtils.setAttribute(
             structureHandler,
@@ -46,16 +48,21 @@ public class AutocryptSelectInputHiddenFieldTagProcessor extends AutocryptAbstra
             this.nameAttributeDefinition,
             NAME_ATTR_NAME,
             name); // No need to escape: this is a java-valid token
-
         StandardProcessorUtils.setAttribute(
             structureHandler,
             this.valueAttributeDefinition,
             VALUE_ATTR_NAME,
-            RequestDataValueProcessorUtils.processFormFieldValue(context, name, value, type));
-    }
+            RequestDataValueProcessorUtils.processFormFieldValue(context, name, value, "radio"));
 
+        if (checked) {
+            StandardProcessorUtils.setAttribute(
+                structureHandler,
+                this.checkedAttributeDefinition,
+                CHECKED_ATTR_NAME,
+                CHECKED_ATTR_NAME);
+        } else {
+            structureHandler.removeAttribute(this.checkedAttributeDefinition.getAttributeName());
+        }
 
-    private static boolean applyConversion(final String type) {
-        return !(type != null && ("number".equalsIgnoreCase(type) || "range".equalsIgnoreCase(type)));
     }
 }
