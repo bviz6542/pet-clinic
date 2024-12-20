@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface PetTypeRepository extends Repository<PetType, Long> {
 
-    @Query("select id, name from pet_type where id in (:typeIdList)")
+    @Query("select pet_type_id, name from pet_type where pet_type.pet_type_id in (:typeIdList)")
     List<PetType> findByIds(@Param("typeIdList") List<Long> typeIdList);
 }

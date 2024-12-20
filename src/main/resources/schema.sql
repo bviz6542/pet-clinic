@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS vet (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    vet_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
     INDEX (last_name)
     ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS specialty (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    specialty_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(80),
     INDEX (name)
     ) DEFAULT CHARSET=utf8mb4;
@@ -14,19 +14,19 @@ CREATE TABLE IF NOT EXISTS specialty (
 CREATE TABLE IF NOT EXISTS vet_specialty (
     vet_id INT UNSIGNED NOT NULL,
     specialty_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (vet_id) REFERENCES vet(id),
-    FOREIGN KEY (specialty_id) REFERENCES specialty(id),
+    FOREIGN KEY (vet_id) REFERENCES vet(vet_id),
+    FOREIGN KEY (specialty_id) REFERENCES specialty(specialty_id),
     UNIQUE (vet_id, specialty_id)
     ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS pet_type (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    pet_type_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(80),
     INDEX (name)
     ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS owner (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    owner_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
     address VARCHAR(255),
@@ -36,20 +36,20 @@ CREATE TABLE IF NOT EXISTS owner (
     ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS pet (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    pet_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30),
     birth_date DATE,
-    type_id INT UNSIGNED NOT NULL,
+    pet_type_id INT UNSIGNED NOT NULL,
     owner_id INT UNSIGNED NOT NULL,
     INDEX (name),
-    FOREIGN KEY (owner_id) REFERENCES owner(id),
-    FOREIGN KEY (type_id) REFERENCES pet_type(id)
+    FOREIGN KEY (owner_id) REFERENCES owner(owner_id),
+    FOREIGN KEY (pet_type_id) REFERENCES pet_type(pet_type_id)
     ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS visit (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    visit_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pet_id INT UNSIGNED NOT NULL,
     date DATE,
     description VARCHAR(255),
-    FOREIGN KEY (pet_id) REFERENCES pet(id)
+    FOREIGN KEY (pet_id) REFERENCES pet(pet_id)
     ) DEFAULT CHARSET=utf8mb4;

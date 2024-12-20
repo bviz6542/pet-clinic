@@ -21,5 +21,5 @@ public class PetType {
     private String name;
 
     @MappedCollection(idColumn = "pet_type_id")
-    private final Set<Pet> pets = new HashSet<>();
+    private Set<Pet> pets = new HashSet<>();
 }

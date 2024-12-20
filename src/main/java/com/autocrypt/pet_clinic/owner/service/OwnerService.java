@@ -1,6 +1,7 @@
 package com.autocrypt.pet_clinic.owner.service;
 
 import com.autocrypt.pet_clinic.owner.domain.Owner;
+import com.autocrypt.pet_clinic.owner.domain.Pet;
 import com.autocrypt.pet_clinic.owner.dto.OwnerDto;
 import com.autocrypt.pet_clinic.owner.dto.OwnerListDto;
 import com.autocrypt.pet_clinic.owner.dto.PetDto;
