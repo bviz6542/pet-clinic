@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/layout}"
+>
+
+<!-- Page Title -->
+<ac-page-title layout:fragment="page-heading" x-cloak>
+  Veterinarians
+</ac-page-title>
+<!-- Page Title 끝 -->
+
+<!-- Content -->
+<ac-container layout:fragment="content" x-cloak>
+  <div class="row-span-full overflow-auto">
+
+    <!-- Table -->
+    <div class="my-4 py-2 flex flex-col">
+      <div class="mb-10">
+        <ac-table>
+          <ac-thead>
+            <ac-tr>
+              <ac-th col="col-span-5">Name</ac-th>
+              <ac-th col="col-span-5">Specialties</ac-th>
+            </ac-tr>
+          </ac-thead>
+
+          <ac-tbody>
+            <ac-tr th:each="vet : ${vetList.vetDtoList}">
+              <ac-td col="col-span-5" th:text="${vet.firstName + ' ' + vet.lastName}"></ac-td>
+              <ac-td col="col-span-5">
+                <span th:each="specialty, specialtyStat : ${vet.specialtyList}" th:text="${specialty.name + (specialtyStat.last ? '' : ', ')}"></span>
+                <span th:if="${vet.specialtyList.isEmpty()}">none</span>
+              </ac-td>
+            </ac-tr>
+          </ac-tbody>
+        </ac-table>
+      </div>
+    </div>
+    <!-- Table 끝 -->
+    
+  </div>
+</ac-container>
+<!-- Content 끝 -->
+
+</html>
