@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/layout}"
+>
+
+<!-- Page Title -->
+<ac-page-title layout:fragment="page-heading" x-cloak>
+  Find Owners
+</ac-page-title>
+<!-- Page Title 끝 -->
+
+<!-- Content -->
+<ac-container layout:fragment="content" x-cloak>
+  <div class="row-span-full overflow-auto">
+
+    <form action="/owners" method="GET">
+      <ac-input id="input" name="lastName" value="" label="Last name" required></ac-input>
+      <ac-button color="black" type="submit">Find Owner</ac-button>
+    </form>
+
+  </div>
+</ac-container>
+
+</html>
