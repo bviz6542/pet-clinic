@@ -14,15 +14,7 @@ public interface OwnerRepository extends Repository<Owner, Long> {
            p.pet_id as pet_id, p.name as pet_name, p.birth_date as pet_birth_date, p.pet_type_id as pet_type_id
         from owner o
         left join pet p on o.owner_id = p.owner_id
-    """)
-    List<OwnerWithPetRaw> findAllWithPetsRaw();
-
-    @Query("""
-        select o.owner_id, o.first_name, o.last_name, o.address, o.city, o.telephone,
-           p.pet_id as pet_id, p.name as pet_name, p.birth_date as pet_birth_date, p.pet_type_id as pet_type_id
-        from owner o
-        left join pet p on o.owner_id = p.owner_id
-        where o.last_name like :lastName
+        where o.last_name like concat(:lastName,'%')
     """)
     List<OwnerWithPetRaw> findOwnersWithPetsByLastNameRaw(@Param("lastName") String lastName);
 }

@@ -23,9 +23,13 @@ public class OwnerService {
     private final PetTypeRepository petTypeRepository;
 
     public OwnerListDto getOwnersByLastName(String lastName) {
-        List<OwnerWithPetRaw> results = (lastName == null)
-                ? ownerRepository.findAllWithPetsRaw()
-                : ownerRepository.findOwnersWithPetsByLastNameRaw(lastName);
+        String lastNameNotNull = (lastName == null) ? "" : lastName;
+
+        List<OwnerWithPetRaw> results = ownerRepository.findOwnersWithPetsByLastNameRaw(lastNameNotNull);
+
+        if (results.isEmpty()) {
+            return new OwnerListDto(Collections.emptyList());
+        }
 
         List<Long> petTypeIdList = results.stream()
                 .map(OwnerWithPetRaw::petTypeId)
