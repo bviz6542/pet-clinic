@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/layout}"
+>
+
+<!-- Page Title -->
+<ac-page-title layout:fragment="page-heading" x-cloak>
+  Welcome
+</ac-page-title>
+<!-- Page Title 끝 -->
+
+<!-- Content -->
+<ac-container layout:fragment="content" x-cloak>
+  <div class="row-span-full overflow-auto">
+
+    <div class="row">
+      <div class="col-md-12">
+        <img alt="pets" th:src="@{/images/pets.png}" />
+      </div>
+    </div>
+
+  </div>
+</ac-container>
+<!-- Content 끝 -->
+
+</html>
