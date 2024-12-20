@@ -22,10 +22,10 @@ public class OwnerService {
     private final OwnerRepository ownerRepository;
     private final PetTypeRepository petTypeRepository;
 
-    public OwnerListDto getOwnersByLastName(Owner owner) {
-        List<OwnerWithPetRaw> results = (owner.getLastName() == null)
+    public OwnerListDto getOwnersByLastName(String lastName) {
+        List<OwnerWithPetRaw> results = (lastName == null)
                 ? ownerRepository.findAllWithPetsRaw()
-                : ownerRepository.findOwnersWithPetsByLastNameRaw(owner.getLastName());
+                : ownerRepository.findOwnersWithPetsByLastNameRaw(lastName);
 
         List<Long> petTypeIdList = results.stream()
                 .map(OwnerWithPetRaw::petTypeId)
