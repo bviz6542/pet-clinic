@@ -45,6 +45,10 @@
       <div class="mb-10">
         <ac-button color="black" th:on-click="'window.location.href=\'/owners/' + ${owner.id} + '/edit\''">Edit Owner</ac-button>
       </div>
+
+      <div class="mb-10">
+        <ac-button color="black" th:on-click="'window.location.href=\'/owners/' + ${owner.id} + '/pets/new\''">Add New Pet</ac-button>
+      </div>
     </div>
 
   </div>

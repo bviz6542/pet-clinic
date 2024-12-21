@@ -6,6 +6,7 @@ import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OwnerRepository extends ListCrudRepository<Owner, Long> {
 
@@ -17,4 +18,7 @@ public interface OwnerRepository extends ListCrudRepository<Owner, Long> {
         where o.last_name like concat(:lastName,'%')
     """)
     List<OwnerWithPetRaw> findOwnersWithPetsByLastNameRaw(@Param("lastName") String lastName);
+
+    @Query("select o.owner_id, o.first_name, o.last_name, o.address, o.city, o.telephone, null as pets from owner o where o.owner_id = :ownerId")
+    Optional<Owner> findOwnerByIdWithNoRelationship(@Param("ownerId") Long ownerId);
 }

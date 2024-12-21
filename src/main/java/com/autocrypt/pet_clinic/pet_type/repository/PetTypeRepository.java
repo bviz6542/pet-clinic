@@ -6,9 +6,12 @@ import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PetTypeRepository extends ListCrudRepository<PetType, Long> {
 
     @Query("select pet_type_id, name from pet_type where pet_type.pet_type_id in (:typeIdList)")
     List<PetType> findByIds(@Param("typeIdList") List<Long> typeIdList);
+
+    Optional<PetType> findByName(String name);
 }

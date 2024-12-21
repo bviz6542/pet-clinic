@@ -1,5 +1,6 @@
-package com.autocrypt.pet_clinic.owner.domain;
+package com.autocrypt.pet_clinic.pet.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
@@ -23,4 +24,12 @@ public class Pet {
 
     @Column("pet_type_id")
     private Long petTypeId;
+
+    @Builder
+    public Pet(Long id, String name, LocalDate birthDate, Long petTypeId) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.petTypeId = petTypeId;
+    }
 }

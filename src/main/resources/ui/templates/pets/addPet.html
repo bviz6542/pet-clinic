@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/layout}"
+>
+
+<!-- Page Title -->
+<ac-page-title layout:fragment="page-heading" x-cloak>
+  New Pet
+</ac-page-title>
+<!-- Page Title 끝 -->
+
+<!-- Content -->
+<ac-container layout:fragment="content" x-cloak>
+  <div class="row-span-full overflow-auto">
+
+    <form th:action="@{/owners/{id}/pets/new(id=${initialPetAddForm.ownerId})}" th:object="${initialPetAddForm}" method="POST">
+      <div>
+        <ac-sub-title th:text="'Owner: ' + ${initialPetAddForm.firstName + ' ' + initialPetAddForm.lastName}"></ac-sub-title>
+        <ac-input id="address" name="petName" th:field="*{petName}" label="Enter pet name" required></ac-input>
+        <ac-input id="address" name="birthDate" th:field="*{birthDate}" label="Select birth date" type="date" required></ac-input>
+
+        <!-- Normal Select -->
+        <ac-select id="petType" name="petType" label="Select Pet Type" th:field="*{petTypeName}" required>
+          <ac-option th:each="petType : ${initialPetAddForm.petTypeList}"
+                     th:value="${petType.name}"
+                     th:text="${petType.name}">
+          </ac-option>
+        </ac-select>
+        <!-- Normal Select 끝 -->
+
+      </div>
+      <ac-button color="black" type="submit">Add Pet</ac-button>
+    </form>
+
+  </div>
+</ac-container>
+
+</html>

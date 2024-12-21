@@ -1,5 +1,6 @@
 package com.autocrypt.pet_clinic.owner.domain;
 
+import com.autocrypt.pet_clinic.pet.domain.Pet;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
@@ -55,5 +56,9 @@ public class Owner {
         this.address = address;
         this.city = city;
         this.telephone = telephone;
+    }
+
+    public void addPet(Pet pet) {
+        pets.add(pet);
     }
 }

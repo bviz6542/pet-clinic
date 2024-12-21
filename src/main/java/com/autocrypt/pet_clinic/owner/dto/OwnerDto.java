@@ -1,5 +1,7 @@
 package com.autocrypt.pet_clinic.owner.dto;
 
+import com.autocrypt.pet_clinic.pet.dto.PetDto;
+
 import java.util.List;
 
 public record OwnerDto(

@@ -1,10 +1,10 @@
 package com.autocrypt.pet_clinic.owner.service;
 
 import com.autocrypt.pet_clinic.owner.domain.Owner;
-import com.autocrypt.pet_clinic.owner.domain.Pet;
+import com.autocrypt.pet_clinic.pet.domain.Pet;
 import com.autocrypt.pet_clinic.owner.dto.OwnerDto;
 import com.autocrypt.pet_clinic.owner.dto.OwnerListDto;
-import com.autocrypt.pet_clinic.owner.dto.PetDto;
+import com.autocrypt.pet_clinic.pet.dto.PetDto;
 import com.autocrypt.pet_clinic.owner.repository.OwnerRepository;
 import com.autocrypt.pet_clinic.owner.repository.OwnerWithPetRaw;
 import com.autocrypt.pet_clinic.pet_type.domain.PetType;
