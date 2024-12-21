@@ -41,6 +41,12 @@
     </div>
     <!-- Table 끝 -->
 
+    <div class="my-4 py-2 flex flex-col">
+      <div class="mb-10">
+        <ac-button color="black" th:on-click="'window.location.href=\'/owners/' + ${owner.id} + '/edit\''">Edit Owner</ac-button>
+      </div>
+    </div>
+
   </div>
 </ac-container>
 
