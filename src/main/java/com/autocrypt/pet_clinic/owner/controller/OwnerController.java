@@ -60,8 +60,27 @@ public class OwnerController {
     }
 
     @PostMapping("/new")
-    public String processAddOwnerPage(@ModelAttribute("owner") OwnerDto ownerDto, Model model) {
-        OwnerDto addedOwnerDto = ownerService.addOwner(ownerDto);
-        return "redirect:/owners/" + addedOwnerDto.id();
+    public String processAddOwnerPage(@ModelAttribute("owner") OwnerDto ownerDto) {
+        Long addedOwnerId = ownerService.addOwner(ownerDto);
+        return "redirect:/owners/" + addedOwnerId;
+    }
+
+    @GetMapping("/{ownerId}/edit")
+    public String initialEditOwnerPage(@PathVariable Long ownerId, Model model) {
+        Optional<OwnerDto> ownerDtoNullable = ownerService.getOwnerById(ownerId);
+
+        if (ownerDtoNullable.isEmpty()) {
+            return "owners/findOwners";
+        }
+
+        OwnerDto ownerDto = ownerDtoNullable.get();
+        model.addAttribute("owner", ownerDto);
+        return "owners/editOwner";
+    }
+
+    @PostMapping("/{ownerId}/edit")
+    public String processEditOwnerPage(@PathVariable Long ownerId, @ModelAttribute("owner") OwnerDto ownerDto) {
+        Long editedOwnerId = ownerService.editOwner(ownerId, ownerDto);
+        return "redirect:/owners/" + editedOwnerId;
     }
 }

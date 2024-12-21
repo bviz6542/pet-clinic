@@ -97,7 +97,7 @@ public class OwnerService {
     }
 
     @Transactional
-    public OwnerDto addOwner(OwnerDto ownerDto) {
+    public Long addOwner(OwnerDto ownerDto) {
         Owner owner = Owner.builder()
                 .firstName(ownerDto.firstName())
                 .lastName(ownerDto.lastName())
@@ -108,6 +108,22 @@ public class OwnerService {
 
         Owner savedOwner = ownerRepository.save(owner);
 
-        return new OwnerDto(savedOwner.getId(), savedOwner.getFirstName(), savedOwner.getLastName(), savedOwner.getAddress(), savedOwner.getCity(), savedOwner.getTelephone(), null);
+        return savedOwner.getId();
+    }
+
+    @Transactional
+    public Long editOwner(Long ownerId, OwnerDto ownerDto) {
+        Owner owner = Owner.builder()
+                .id(ownerId)
+                .firstName(ownerDto.firstName())
+                .lastName(ownerDto.lastName())
+                .address(ownerDto.address())
+                .city(ownerDto.city())
+                .telephone(ownerDto.telephone())
+                .build();
+
+        Owner editedOwner = ownerRepository.save(owner);
+
+        return editedOwner.getId();
     }
 }

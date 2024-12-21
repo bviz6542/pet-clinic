@@ -39,7 +39,8 @@ public class Owner {
     private Set<Pet> pets;
 
     @Builder
-    public Owner(String firstName, String lastName, String address, String city, String telephone, Set<Pet> pets) {
+    public Owner(Long id, String firstName, String lastName, String address, String city, String telephone, Set<Pet> pets) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
