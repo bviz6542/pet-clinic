@@ -44,6 +44,10 @@ public class OwnerService {
                 .distinct()
                 .toList();
 
+        if (petTypeIdList.isEmpty()) {
+            return Collections.emptyMap();
+        }
+
         return petTypeRepository.findByIds(petTypeIdList).stream()
                 .collect(Collectors.toMap(PetType::getId, PetType::getName));
     }

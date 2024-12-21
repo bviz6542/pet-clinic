@@ -14,7 +14,7 @@ public class Pet {
 
     @Id
     @Column("pet_id")
-    private String id;
+    private Long id;
 
     private String name;
 
