@@ -16,9 +16,15 @@
   <div class="row-span-full overflow-auto">
 
     <form action="/owners" method="GET">
-      <ac-input id="input" name="lastName" value="" label="Last name" required></ac-input>
+      <ac-input id="input" name="lastName" value="" label="Enter last name"></ac-input>
       <ac-button color="black" type="submit">Find Owner</ac-button>
     </form>
+
+    <div class="my-4 py-2 flex flex-col">
+      <div class="mb-10">
+        <ac-button color="black" on-click="window.location.href='/owners/new'">Add Owner</ac-button>
+      </div>
+    </div>
 
   </div>
 </ac-container>

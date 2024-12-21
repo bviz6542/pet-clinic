@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/layout}"
+>
+
+<!-- Page Title -->
+<ac-page-title layout:fragment="page-heading" x-cloak>
+  Add Owner
+</ac-page-title>
+<!-- Page Title 끝 -->
+
+<!-- Content -->
+<ac-container layout:fragment="content" x-cloak>
+  <div class="row-span-full overflow-auto">
+
+    <form th:action="@{/owners/new}" th:object="${owner}" method="POST">
+      <div>
+        <ac-input id="firstName" name="firstName" th:field="*{firstName}" label="Enter first name" required></ac-input>
+        <ac-input id="lastName" name="lastName" th:field="*{lastName}" label="Enter last name" required></ac-input>
+        <ac-input id="address" name="address" th:field="*{address}" label="Enter address" required></ac-input>
+        <ac-input id="city" name="city" th:field="*{city}" label="Enter city" required></ac-input>
+        <ac-input id="telephone" name="telephone" th:field="*{telephone}" label="Enter telephone" required></ac-input>
+      </div>
+      <ac-button color="black" type="submit">Add Owner</ac-button>
+    </form>
+
+  </div>
+</ac-container>
+
+</html>
