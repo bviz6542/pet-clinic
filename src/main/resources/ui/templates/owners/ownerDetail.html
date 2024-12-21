@@ -7,7 +7,7 @@
 
 <!-- Page Title -->
 <ac-page-title layout:fragment="page-heading" x-cloak>
-  Owners
+  Owner Information
 </ac-page-title>
 <!-- Page Title 끝 -->
 
@@ -25,25 +25,15 @@
               <ac-th col="col-span-2">Address</ac-th>
               <ac-th col="col-span-2">City</ac-th>
               <ac-th col="col-span-2">Telephone</ac-th>
-              <ac-th col="col-span-3">Pets</ac-th>
             </ac-tr>
           </ac-thead>
 
           <ac-tbody>
-            <ac-tr th:each="owner : ${ownerList.ownerDtoList}">
-              <ac-td col="col-span-2">
-                <a th:href="@{/owners/__${owner.id}__}"
-                   th:text="${owner.firstName + ' ' + owner.lastName}"
-                   style="text-decoration: underline;">
-                </a>
-              </ac-td>
+            <ac-tr>
+              <ac-td col="col-span-2" th:text="${owner.firstName + ' ' + owner.lastName}"></ac-td>
               <ac-td col="col-span-2" th:text="${owner.address}"></ac-td>
               <ac-td col="col-span-2" th:text="${owner.city}"></ac-td>
               <ac-td col="col-span-2" th:text="${owner.telephone}"></ac-td>
-              <ac-td col="col-span-3">
-                <span th:each="pet, petStat : ${owner.petDtoList}" th:text="${pet.name + (petStat.last ? '' : ', ')}"></span>
-                <span th:if="${owner.petDtoList.isEmpty()}">none</span>
-              </ac-td>
             </ac-tr>
           </ac-tbody>
         </ac-table>
