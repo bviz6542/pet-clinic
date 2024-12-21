@@ -10,4 +10,17 @@ public record OwnerDto(
         String city,
         String telephone,
         List<PetDto> petDtoList
-) {}
+) {
+
+    public static OwnerDto createEmpty() {
+        return new OwnerDto(
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+    }
+}

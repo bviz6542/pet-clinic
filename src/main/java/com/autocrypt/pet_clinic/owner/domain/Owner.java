@@ -2,13 +2,13 @@ package com.autocrypt.pet_clinic.owner.domain;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -36,5 +36,15 @@ public class Owner {
     private String telephone;
 
     @MappedCollection(idColumn = "owner_id")
-    private final Set<Pet> pets = new HashSet<>();
+    private Set<Pet> pets;
+
+    @Builder
+    public Owner(String firstName, String lastName, String address, String city, String telephone, Set<Pet> pets) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.telephone = telephone;
+        this.pets = pets;
+    }
 }

@@ -1,5 +1,6 @@
 package com.autocrypt.pet_clinic.owner.service;
 
+import com.autocrypt.pet_clinic.owner.domain.Owner;
 import com.autocrypt.pet_clinic.owner.dto.OwnerDto;
 import com.autocrypt.pet_clinic.owner.dto.OwnerListDto;
 import com.autocrypt.pet_clinic.owner.dto.PetDto;
@@ -82,18 +83,31 @@ public class OwnerService {
 
     @Transactional(readOnly = true)
     public Optional<OwnerDto> getOwnerById(Long ownerId) {
-        Optional<OwnerWithPetRaw> ownerWithPetRawNullable = ownerRepository.findOwnerWithPetsByIdRaw(ownerId);
+        List<OwnerWithPetRaw> ownerWithPetRawList = ownerRepository.findOwnerWithPetsByIdRaw(ownerId);
 
-        if (ownerWithPetRawNullable.isEmpty()) {
+        if (ownerWithPetRawList.isEmpty()) {
             return Optional.empty();
         }
 
-        OwnerWithPetRaw ownerWithPetRaw = ownerWithPetRawNullable.get();
+        Map<Long, String> petTypeMap = findPetTypeListByOwnerWithPetRawList(ownerWithPetRawList);
 
-        Map<Long, String> petTypeMap = findPetTypeListByOwnerWithPetRawList(List.of(ownerWithPetRaw));
-
-        List<OwnerDto> ownerDtoList = mapToOwnerDtoList(List.of(ownerWithPetRaw), petTypeMap);
+        List<OwnerDto> ownerDtoList = mapToOwnerDtoList(ownerWithPetRawList, petTypeMap);
 
         return ownerDtoList.isEmpty() ? Optional.empty() : Optional.of(ownerDtoList.getFirst());
+    }
+
+    @Transactional
+    public OwnerDto addOwner(OwnerDto ownerDto) {
+        Owner owner = Owner.builder()
+                .firstName(ownerDto.firstName())
+                .lastName(ownerDto.lastName())
+                .address(ownerDto.address())
+                .city(ownerDto.city())
+                .telephone(ownerDto.telephone())
+                .build();
+
+        Owner savedOwner = ownerRepository.save(owner);
+
+        return new OwnerDto(savedOwner.getId(), savedOwner.getFirstName(), savedOwner.getLastName(), savedOwner.getAddress(), savedOwner.getCity(), savedOwner.getTelephone(), null);
     }
 }

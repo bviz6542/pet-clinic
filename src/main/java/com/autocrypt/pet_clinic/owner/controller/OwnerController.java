@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -54,5 +51,17 @@ public class OwnerController {
         OwnerDto ownerDto = ownerDtoNullable.get();
         model.addAttribute("owner", ownerDto);
         return "owners/ownerDetail";
+    }
+
+    @GetMapping("/new")
+    public String initialAddOwnerPage(Model model) {
+        model.addAttribute("owner", OwnerDto.createEmpty());
+        return "owners/addOwner";
+    }
+
+    @PostMapping("/new")
+    public String processAddOwnerPage(@ModelAttribute("owner") OwnerDto ownerDto, Model model) {
+        OwnerDto addedOwnerDto = ownerService.addOwner(ownerDto);
+        return "redirect:/owners/" + addedOwnerDto.id();
     }
 }
