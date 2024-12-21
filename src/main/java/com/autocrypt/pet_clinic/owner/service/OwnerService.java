@@ -1,6 +1,7 @@
 package com.autocrypt.pet_clinic.owner.service;
 
 import com.autocrypt.pet_clinic.owner.domain.Owner;
+import com.autocrypt.pet_clinic.owner.domain.Pet;
 import com.autocrypt.pet_clinic.owner.dto.OwnerDto;
 import com.autocrypt.pet_clinic.owner.dto.OwnerListDto;
 import com.autocrypt.pet_clinic.owner.dto.PetDto;
@@ -32,18 +33,31 @@ public class OwnerService {
             return new OwnerListDto(Collections.emptyList());
         }
 
-        Map<Long, String> petTypeMap = findPetTypeListByOwnerWithPetRawList(results);
+        Map<Long, String> petTypeMap = getPetTypeMap(results.stream()
+                .map(OwnerWithPetRaw::petTypeId)
+                .filter(Objects::nonNull)
+                .distinct()
+                .toList());
 
         return new OwnerListDto(mapToOwnerDtoList(results, petTypeMap));
     }
 
-    private Map<Long, String> findPetTypeListByOwnerWithPetRawList(List<OwnerWithPetRaw> ownerWithPetRawList) {
-        List<Long> petTypeIdList = ownerWithPetRawList.stream()
-                .map(OwnerWithPetRaw::petTypeId)
-                .filter(Objects::nonNull)
-                .distinct()
-                .toList();
+    @Transactional(readOnly = true)
+    public OwnerDto getOwnerById(Long ownerId) {
+        Owner owner = ownerRepository.findById(ownerId)
+                .orElseThrow(IllegalArgumentException::new);
 
+        Map<Long, String> petTypeMap = getPetTypeMap(owner.getPets().stream()
+                .map(Pet::getPetTypeId)
+                .distinct()
+                .toList());
+
+        List<PetDto> petDtoList = mapToPetDtoList(owner.getPets(), petTypeMap);
+
+        return new OwnerDto(owner.getId(), owner.getFirstName(), owner.getLastName(), owner.getLastName(), owner.getAddress(), owner.getCity(), petDtoList);
+    }
+
+    private Map<Long, String> getPetTypeMap(List<Long> petTypeIdList) {
         if (petTypeIdList.isEmpty()) {
             return Collections.emptyMap();
         }
@@ -69,15 +83,7 @@ public class OwnerService {
             ));
 
             if (row.petId() != null) {
-                String petTypeName = petTypeMap.getOrDefault(row.petTypeId(), null);
-
-                PetDto petDto = new PetDto(
-                        row.petId(),
-                        row.petName(),
-                        row.petBirthDate() != null ? row.petBirthDate().toString() : null,
-                        petTypeName
-                );
-
+                PetDto petDto = mapToPetDto(row, petTypeMap.get(row.petTypeId()));
                 ownerDto.petDtoList().add(petDto);
             }
         }
@@ -85,19 +91,23 @@ public class OwnerService {
         return new ArrayList<>(ownerMap.values());
     }
 
-    @Transactional(readOnly = true)
-    public Optional<OwnerDto> getOwnerById(Long ownerId) {
-        List<OwnerWithPetRaw> ownerWithPetRawList = ownerRepository.findOwnerWithPetsByIdRaw(ownerId);
+    private PetDto mapToPetDto(OwnerWithPetRaw row, String petTypeName) {
+        return new PetDto(
+                row.petId(),
+                row.petName(),
+                row.petBirthDate() != null ? row.petBirthDate().toString() : null,
+                petTypeName
+        );
+    }
 
-        if (ownerWithPetRawList.isEmpty()) {
-            return Optional.empty();
-        }
-
-        Map<Long, String> petTypeMap = findPetTypeListByOwnerWithPetRawList(ownerWithPetRawList);
-
-        List<OwnerDto> ownerDtoList = mapToOwnerDtoList(ownerWithPetRawList, petTypeMap);
-
-        return ownerDtoList.isEmpty() ? Optional.empty() : Optional.of(ownerDtoList.getFirst());
+    private List<PetDto> mapToPetDtoList(Set<Pet> pets, Map<Long, String> petTypeMap) {
+        return pets.stream()
+                .map(pet -> new PetDto(
+                        pet.getId(),
+                        pet.getName(),
+                        pet.getBirthDate().toString(),
+                        petTypeMap.get(pet.getPetTypeId())))
+                .toList();
     }
 
     @Transactional

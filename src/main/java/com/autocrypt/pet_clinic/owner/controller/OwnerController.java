@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/owners")
@@ -42,13 +40,7 @@ public class OwnerController {
 
     @GetMapping("/{ownerId}")
     public String ownerDetailPage(@PathVariable Long ownerId, Model model) {
-        Optional<OwnerDto> ownerDtoNullable = ownerService.getOwnerById(ownerId);
-
-        if (ownerDtoNullable.isEmpty()) {
-            return "owners/findOwners";
-        }
-
-        OwnerDto ownerDto = ownerDtoNullable.get();
+        OwnerDto ownerDto = ownerService.getOwnerById(ownerId);
         model.addAttribute("owner", ownerDto);
         return "owners/ownerDetail";
     }
@@ -67,13 +59,7 @@ public class OwnerController {
 
     @GetMapping("/{ownerId}/edit")
     public String initialEditOwnerPage(@PathVariable Long ownerId, Model model) {
-        Optional<OwnerDto> ownerDtoNullable = ownerService.getOwnerById(ownerId);
-
-        if (ownerDtoNullable.isEmpty()) {
-            return "owners/findOwners";
-        }
-
-        OwnerDto ownerDto = ownerDtoNullable.get();
+        OwnerDto ownerDto = ownerService.getOwnerById(ownerId);
         model.addAttribute("owner", ownerDto);
         return "owners/editOwner";
     }
