@@ -113,14 +113,10 @@ public class OwnerService {
 
     @Transactional
     public Long editOwner(Long ownerId, OwnerDto ownerDto) {
-        Owner owner = Owner.builder()
-                .id(ownerId)
-                .firstName(ownerDto.firstName())
-                .lastName(ownerDto.lastName())
-                .address(ownerDto.address())
-                .city(ownerDto.city())
-                .telephone(ownerDto.telephone())
-                .build();
+        Owner owner = ownerRepository.findById(ownerId)
+                .orElseThrow(IllegalArgumentException::new);
+
+        owner.edit(ownerDto.firstName(), ownerDto.lastName(), ownerDto.address(), ownerDto.city(), ownerDto.telephone());
 
         Owner editedOwner = ownerRepository.save(owner);
 

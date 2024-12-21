@@ -20,4 +20,7 @@ public class Pet {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
+
+    @Column("pet_type_id")
+    private Long petTypeId;
 }
