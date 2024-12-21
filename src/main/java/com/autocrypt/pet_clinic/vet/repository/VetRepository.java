@@ -9,11 +9,11 @@ import java.util.List;
 public interface VetRepository extends Repository<Vet, Long> {
 
     @Query("""
-        select v.id as vet_id, v.first_name, v.last_name,
-           s.id as specialty_id, s.name as specialty_name
+        select v.vet_id, v.first_name, v.last_name,
+           s.specialty_id, s.name as specialty_name
         from vet v
-        left join vet_specialty vs on v.id = vs.vet_id
-        left join specialty s on s.id = vs.specialty_id
+        left join vet_specialty vs on v.vet_id = vs.vet_id
+        left join specialty s on s.specialty_id = vs.specialty_id
     """)
     List<VetWithSpecialtiesRaw> findAllWithSpecialtiesRaw();
 }
